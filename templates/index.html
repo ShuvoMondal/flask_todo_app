@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/materialize.min.css')}}"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <style>
+      *{
+        text-decoration: none;
+      }
+      a{
+        color: black;
+      }
+    </style>
+
+    <body class="teal lighten-2">
+      <div class="container">
+        <!-- Page Content goes here -->
+        <div class="row">
+          <div class="col s12 m12 l12">
+            <div class="card z-depth-3">
+              <div class="card-content">
+                <form action="{{ url_for('main.add_todo') }}" method="post">
+                  <div class="input-field col s9 m11 l11">
+                    <i class="material-icons prefix">mode_edit</i>
+                    <input id="todo" type="text" name="todo" class=""></input>
+                    <label for="todo">TODO</label>
+                  </div>
+                  <button type="submit" class="btn-floating btn-large waves-effect waves-light teal darken-2"><i class="material-icons">add</i></button>
+                </form>
+              </div>
+              <a class="waves-effect waves-light btn teal darken-2 z-depth-0" href="{{ url_for('main.delete_completed') }}"> DELETE COMPLETED</a>
+              <a class="waves-effect waves-light btn teal darken-2 z-depth-0" href="{{ url_for('main.delete_all') }}"> DELETE ALL</a>
+          </div>
+          <div class="col s12 m12 l12">
+            <ul class="collapsible">
+              {% for todo in todos %}
+                <a href="{{ url_for('main.complete_todo', oid=todo._id) }}">
+                  <li>
+                    <div class="collapsible-header {% if todo.complete %} red lighten-2 {% endif %}">
+                      {{todo.text}}
+                    </div>
+                  </li>
+                </a>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!--JavaScript at end of body for optimized loading-->
+      <script type="text/javascript" src="{{url_for('static', filename='js/materialize.min.js')}}"></script>
+    </body>
+  </html>
